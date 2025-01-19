@@ -1,0 +1,90 @@
+<section class="content">
+    <div class="content-block">
+        <div class="block-header">
+            <!-- breadcrumb -->
+            <app-breadcrumb [title]="'Entities'" [items]="['entities']" [active_item]="'All Entities'">
+            </app-breadcrumb>
+        </div>
+
+        <div mat-dialog-content>
+            <form class="register-form m-4" [formGroup]="addEntityForm">
+                <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 mb-2">
+                        <mat-form-field class="example-full-width" appearance="outline">
+                            <mat-label>Entity Name</mat-label>
+                            <input matInput formControlName="name" required />
+                            <mat-error *ngIf="addEntityForm.get('name').hasError('required')">
+                                Entity Name is required
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 mb-2">
+                        <mat-form-field class="example-full-width" appearance="outline">
+                            <mat-label>Entity Phone</mat-label>
+                            <input matInput formControlName="phone" required />
+                            <mat-error *ngIf="addEntityForm.get('phone').hasError('required')">
+                                Entity Phone is required
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 mb-2">
+                        <mat-form-field class="example-full-width" appearance="outline">
+                            <mat-label>Entity Email</mat-label>
+                            <input matInput formControlName="email" required />
+                            <mat-error *ngIf="addEntityForm.get('email').hasError('required')">
+                                Entity Email is required
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 mb-2">
+                        <mat-form-field class="example-full-width" appearance="outline">
+                            <mat-label>Entity Type</mat-label>
+                            <mat-select formControlName="type" required>
+                                <mat-option value="MANUFACTURING">MANUFACTURING</mat-option>
+                                <mat-option value="DISTRIBUTING">DISTRIBUTING</mat-option>
+                                <mat-option value="RETAILER">RETAILER
+                                    Number</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="addEntityForm.get('type').hasError('required')">
+                                Entity Name is required
+                            </mat-error>
+                        </mat-form-field>   
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 mb-2">
+
+                        <mat-form-field class="example-full-width" appearance="outline">
+                            <mat-label>Entity Location</mat-label>
+                            <input matInput formControlName="location" required />
+                            <mat-error *ngIf="addEntityForm.get('location').hasError('required')">
+                                Entity Location is required
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                            <input type="file" (change)="onFileSelected($event)" required />
+                        </div>
+                    </div>
+                        
+                </div>
+          
+
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                        <div class="example-button-row" align="start">
+                            <button mat-raised-button color="primary" [disabled]="!addEntityForm.valid"
+                                (click)="onSubmit()">
+                                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                                <b>Submit</b>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</section>

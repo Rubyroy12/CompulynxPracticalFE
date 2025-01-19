@@ -1,0 +1,91 @@
+<mat-card class="example-card">
+    <mat-card-header>
+
+        <mat-card-title>Select Status to download {{ this.data.type }} report</mat-card-title>
+    </mat-card-header>
+    <mat-progress-bar *ngIf="this.loading" mode="indeterminate"></mat-progress-bar>
+    <mat-card-content>
+
+
+        <form class="register-form" [formGroup]="reportForm" *ngIf="this.data.type=='Processing'">
+            <mat-divider></mat-divider>
+            <div class="row">
+
+                <div class="col-xl-11 col-lg-11 col-md-11 col-sm-12 m-2">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Select Status </mat-label>
+                        <mat-select formControlName="status">
+                            <mat-option value="Approved">Approved</mat-option>
+                            <mat-option value="Rejected">Rejected</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <div class="col-xl-11 col-lg-11 col-md-11 col-sm-12 mb-3">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>Choose Date</mat-label>
+                        <input matInput [matDatepicker]="datePicker" formControlName="date" readonly>
+                        <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
+                        <mat-datepicker #datePicker></mat-datepicker>
+                        <mat-error *ngIf="reportForm.get('date').hasError('required')">Date is
+                            required</mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div class="col-xl-11 col-lg-11 col-md-11 col-sm-12 mb-2">
+                    <div class="example-button-row" align="end">
+                        <button mat-raised-button (click)="close()">Cancel</button>
+                        <button mat-raised-button color="primary" [disabled]="!reportForm.valid"
+                            (click)="downloadReport()">
+                            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                            <b>Download</b>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <form class="register-form" [formGroup]="pesalinkReportForm" *ngIf="this.data.type=='Pesalink'">
+            <mat-divider></mat-divider>
+            <div class="row">
+
+                <div class="col-xl-11 col-lg-11 col-md-11 col-sm-12 m-2">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Select Transaction Status</mat-label>
+                        <mat-select formControlName="status">
+                            <mat-option value="Pending">Pending</mat-option>
+                            <mat-option value="Accepted">Accepted</mat-option>
+                            <mat-option value="Error">Error</mat-option>
+                            <mat-option value="Successful">Successful</mat-option>
+                            <mat-option value="Failed">Failed</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-xl-11 col-lg-11 col-md-11 col-sm-12 mb-3">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>Choose Date</mat-label>
+                        <input matInput [matDatepicker]="datePicker" formControlName="date" readonly>
+                        <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
+                        <mat-datepicker #datePicker></mat-datepicker>
+                        <mat-error *ngIf="pesalinkReportForm.get('date').hasError('required')">Date is
+                            required</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-xl-11 col-lg-11 col-md-11 col-sm-12 mb-2">
+                    <div class="example-button-row" align="end">
+                        <!-- <mat-card-actions> -->
+                        <button mat-raised-button (click)="close()">Cancel</button>
+                        <button mat-raised-button color="primary" [disabled]="!pesalinkReportForm.valid"
+                            (click)="downloadPesalinkReport()">
+                            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                            <b>Download</b>
+                        </button>
+                        <!-- </mat-card-actions> -->
+                    </div>
+                </div>
+            </div>
+        </form>
+    </mat-card-content>
+
+
+
+</mat-card>

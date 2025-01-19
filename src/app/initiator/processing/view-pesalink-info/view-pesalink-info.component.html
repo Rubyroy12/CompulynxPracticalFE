@@ -1,0 +1,113 @@
+<div class="content-block down">
+    <div class="row clearfix down">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+            <div class="card">
+                <div class="header">
+                    <h2>Pesalink Details - {{data.dt.transactionCode}} - {{data.dt.status}}</h2>
+                </div>
+                <div class="body">
+                    <div class="card down">
+                        <div class="row m-2">
+                            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-0">
+                                <p class="mt-3 mr-3 ml-3">Transaction Code - <b> {{data.dt.transactionCode}}</b></p>
+                                <p class="mt-3 mr-3 ml-3">Initiated On - <b>{{data.dt.createdOn | date:'medium'}}</b>
+                                </p>
+                                <p class="mt-3 mr-3 ml-3" *ngIf="data.dt.ipslResponse != null">Pesalink Response - <b>
+                                        {{data.dt.ipslResponse}}</b></p>
+                                <p class="mt-3 mr-3 ml-3" *ngIf="data.dt.ipslResponse == null">Pesalink Response - <b>
+                                        {{"NA"}}</b></p>
+                                <p class="mt-3 mr-3 ml-3">Response Description - <b> {{data.dt.ipslResponseCode}} - {{data.dt.ipslRemarks}}</b></p>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-0">
+                                <p class="mt-3 mr-3 ml-3">Message - <b>{{data.dt.message}}</b></p>
+                                <p class="mt-3 mr-3 ml-3">End To End ID - <b> {{data.dt.endToEndId}}</b></p>
+                                <p class="mt-3 mr-3 ml-3">Message ID - <b> {{data.dt.messageId}}</b></p>
+                                <p class="mt-3 mr-3 ml-3">Original message Id - <b>{{data.dt.originalMessageId}}</b></p>
+                            </div>
+
+                        </div>
+                    </div>
+                    <form [formGroup]="transactionForm" class="m-4">
+                        <div class="row">
+                            <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-0">
+                                <mat-form-field class="example-full-width mb-0" appearance="outline">
+                                    <mat-label>Debit Account</mat-label>
+                                    <input formControlName="debitAccount" matInput readonly />
+                                </mat-form-field>
+                            </div>
+                            <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-0">
+                                <mat-form-field class="example-full-width mb-0" appearance="outline">
+                                    <mat-label>Sender Name</mat-label>
+                                    <input formControlName="senderName" matInput readonly />
+                                </mat-form-field>
+                            </div>
+                            <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-0">
+                                <mat-form-field class="example-full-width mb-0" appearance="outline">
+                                    <mat-label>Recipient Type</mat-label>
+                                    <input formControlName="recipientType" matInput />
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-0">
+                                <mat-form-field class="example-full-width mb-0" appearance="outline">
+                                    <mat-label>Recipient Account</mat-label>
+                                    <input formControlName="recipientAccount" matInput readonly />
+                                </mat-form-field>
+                            </div>
+                            <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-0">
+                                <mat-form-field class="example-full-width mb-0" appearance="outline">
+                                    <mat-label>Recipient Name</mat-label>
+                                    <input formControlName="recipientName" matInput readonly />
+                                </mat-form-field>
+                            </div>
+                            <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-0">
+                                <mat-form-field class="example-full-width mb-0" appearance="outline">
+                                    <mat-label>Beneficiary Bank Code</mat-label>
+                                    <input matInput formControlName="beneficiaryBankCode" readonly />
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xl-4 col-lg- col-md-12 col-sm-12 mb-0">
+                                <mat-form-field class="example-full-width mb-0" appearance="outline">
+                                    <mat-label>Transaction Amount</mat-label>
+                                    <input matInput formControlName="amount" readonly />
+                                </mat-form-field>
+                            </div>
+                            <div class="col-xl-4 col-lg- col-md-12 col-sm-12 mb-0">
+                                <mat-form-field class="example-full-width mb-0" appearance="outline">
+                                    <mat-label>Transaction Narration</mat-label>
+                                    <input matInput formControlName="narration" readonly />
+                                </mat-form-field>
+                            </div>
+                            <div class="col-xl-4 col-lg- col-md-12 col-sm-12 mb-0">
+                                <mat-form-field class="example-full-width mb-0" appearance="outline">
+                                    <mat-label>Charge Amount</mat-label>
+                                    <input matInput formControlName="chargeAmount" readonly />
+                                </mat-form-field>
+                            </div>
+
+                            <div class="col-xl-4 col-lg- col-md-12 col-sm-12 mb-0">
+                                <mat-form-field class="example-full-width mb-0" appearance="outline">
+                                    <mat-label>Excise Duty Amount</mat-label>
+                                    <input matInput formControlName="edutyAmount" readonly />
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-0">
+                                <button mat-raised-button color="warn" mat-button (click)=" onCancel()" tabindex="-2">
+                                    <b>Cancel</b>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

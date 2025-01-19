@@ -1,0 +1,102 @@
+<section class="content">
+    <div class="content-block">
+        <div class="block-header">
+            <app-breadcrumb [title]="'Dashboard'" [items]="['Pesalink','Processing']" [active_item]="'Dashboard'">
+            </app-breadcrumb>
+        </div>
+
+        <!-- <div *ngIf="finacle && ipsl"> -->
+        <div>
+            @if (loading) {
+            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+            }
+
+
+            <!--1st Row-->
+            <div class="row">
+                <div class="card">
+                    <div class="body down">
+
+
+                        <div class="row ">
+                            <div class="col-xl-4 col-lg-12">
+                                <div class="card l-bg-brown">
+                                    <div class="card-statistic-3">
+                                        <div class="card-content">
+                                            <h4 class="card-title">Pending Verification</h4>
+                                            <span class="data-1">{{finacleData.pending}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-12">
+                                <div class="card l-bg-brown">
+                                    <div class="card-statistic-3">
+                                        <div class="card-content">
+                                            <h4 class="card-title">Approved Transactions</h4>
+                                            <span class="data-1">{{finacleData.approved}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-12">
+                                <div class="card l-bg-brown">
+                                    <div class="card-statistic-3">
+                                        <div class="card-content">
+                                            <h4 class="card-title">Rejected Transactions</h4>
+                                            <span class="data-1">{{ finacleData.rejected }}</span>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <!--3rd Row-->
+            <div class="row">
+                <div class="card">
+                    <div class="body down">
+                        <div class="row ">
+                            <div class="col-xl-4 col-lg-12">
+                                <div class="card l-bg-brown">
+                                    <div class="card-statistic-3">
+                                        <div class="card-content">
+                                            <h4 class="card-title">Pesalink Successful</h4>
+                                            <span class="data-1">{{ipslData.success}}</span>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-12">
+                                <div class="card l-bg-brown">
+                                    <div class="card-statistic-3">
+                                        <div class="card-content">
+                                            <h4 class="card-title">Pesalink Pending</h4>
+                                            <span class="data-1">{{ipslData.pending}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-12">
+                                <div class="card l-bg-brown">
+                                    <div class="card-statistic-3">
+                                        <div class="card-content">
+                                            <h4 class="card-title">Pesalink Failed</h4>
+                                            <span class="data-1">{{ipslData.failed}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

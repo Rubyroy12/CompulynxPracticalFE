@@ -1,0 +1,89 @@
+<section class="content">
+    <div class="content-block">
+        <div class="block-header">
+            <app-breadcrumb [title]="'Pesalink Bulk Processing'" [items]="['Outgoing Pesalink']"
+                [active_item]="'Bulk Upload'">
+            </app-breadcrumb>
+        </div>
+
+        <div class="row">
+            <div class="card">
+                <div class="body down">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="table-responsive">
+                            <p>
+                                <strong>
+                                    Follow the following guidelines to complete this process
+                                    successfully.
+                                </strong>
+                            </p>
+                            <ul>
+                                <li>
+                                    <i class="fas fa-angle-double-right m-l-10 m-r-5"></i>
+                                    Download the excel template and populate the data.
+                                </li>
+                                <li>
+                                    <i class="fas fa-angle-double-right m-l-10 m-r-5"></i> Save the
+                                    excel stylesheet as *.xlsx or *.xls extension
+                                </li>
+                                <li>
+                                    <i class="fas fa-angle-double-right m-l-10 m-r-5"></i>
+                                    Do not <b>alter</b> the columns in the excel template.
+                                </li>
+                                <li>
+                                    <i class="fas fa-angle-double-right m-l-10 m-r-5"></i>
+                                    The columns in the excel file are:<br />
+                                </li>
+                                <li>
+                                    <i class="fas fa-angle-double-right m-l-10 m-r-5"></i>
+                                    <b>DebitAccount </b>- Account to be debited in VCB.
+                                </li>
+                                <li>
+                                    <i class="fas fa-angle-double-right m-l-10 m-r-5"></i>
+                                    <b>Amount </b>- Transaction Amount.
+                                </li>
+                                <li>
+                                    <i class="fas fa-angle-double-right m-l-10 m-r-5"></i>
+                                    <b>RecipientAccount </b>- Beneficiary's account number or phone number.
+                                </li>
+                                <li>
+                                    <i class="fas fa-angle-double-right m-l-10 m-r-5 m-r-5"></i>
+                                    <b>Beneficiary Bank </b>- Bank the funds are being sent to (Select from a drop down
+                                    provided).
+                                </li>
+                                <li>
+                                    <i class="fas fa-angle-double-right m-l-10 m-r-5"></i>
+                                    <b>Narration </b>- Transaction Narration (Limit it to at most 50 characters).
+                                </li>
+                                <li>
+                                    <i class="fas fa-angle-double-right m-l-10 m-r-5"></i>
+                                    The total number of columns in the execl fileshould be 6.
+                                </li>
+                                <li>
+                                    <i class="fas fa-angle-double-right m-l-10 m-r-5"></i>
+                                    Use this excel template to fill your data for bulk processing.<br />
+                                </li>
+                                <li>
+                                    <i class="fas fa-angle-double-right m-l-10 m-r-5"></i>
+                                    All fields are Mandatory.<br />
+                                </li>
+                                <li>
+                                    <i class="fas fa-angle-double-right m-l-10 m-r-5"></i>
+                                    <a href="javascript:void()" (click)="downloadBulkTemplate()"><b>Template
+                                            Download</b></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <button mat-flat-button color="primary" type="submit" class="msr-2 mb-2 mt-2"
+                            routerLink="/initiator/process/bulk">
+                            <b>Proceed</b>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
