@@ -15,9 +15,52 @@ export const ROUTES: RouteInfo[] = [
   },
 
   // Admin Modules
+
+
+
   {
-    path: "/admin/users",
-    title: "User Accounts",
+    path: "/admin/entities",
+    title: "Data generation",
+    moduleName: "students",
+    iconType: "feather",
+    icon: "list",
+    class: "",
+    groupTitle: false,
+    badge: "",
+    badgeClass: "",
+    role: ["USER"],
+    submenu: [],
+  },
+
+  {
+    path: "/admin/entities",
+    title: "Data processing",
+    moduleName: "students",
+    iconType: "feather",
+    icon: "list",
+    class: "",
+    groupTitle: false,
+    badge: "",
+    badgeClass: "",
+    role: ["USER"],
+    submenu: [],
+  },
+  {
+    path: "/admin/entities",
+    title: "File upload",
+    moduleName: "students",
+    iconType: "feather",
+    icon: "list",
+    class: "",
+    groupTitle: false,
+    badge: "",
+    badgeClass: "",
+    role: ["USER"],
+    submenu: [],
+  },
+  {
+    path: "/admin/students",
+    title: "Student management",
     moduleName: "users",
     iconType: "feather",
     icon: "users",
@@ -29,38 +72,10 @@ export const ROUTES: RouteInfo[] = [
     submenu: [
     ],
   },
-
-  {
-    path: "/admin/roles",
-    title: "User Roles",
-    moduleName: "roles",
-    iconType: "feather",
-    icon: "user-check",
-    class: "",
-    groupTitle: false,
-    badge: "",
-    badgeClass: "",
-    role: ["USER"],
-    submenu: [],
-  },
-  {
-    path: "/admin/departments",
-    title: "Departments",
-    moduleName: "departments",
-    iconType: "feather",
-    icon: "layers",
-    class: "",
-    groupTitle: false,
-    badge: "",
-    badgeClass: "",
-    role: ["USER"],
-    submenu: [],
-  },
-
   {
     path: "/admin/entities",
-    title: "Entities",
-    moduleName: "entity",
+    title: "Student Report",
+    moduleName: "students",
     iconType: "feather",
     icon: "list",
     class: "",
@@ -70,5 +85,4 @@ export const ROUTES: RouteInfo[] = [
     role: ["USER"],
     submenu: [],
   }
-
 ];

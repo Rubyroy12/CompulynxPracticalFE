@@ -2,11 +2,7 @@ import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 
 const routes: Routes = [
-  {
-    path: "dashboard",
-    loadChildren: () =>
-      import("./dashboard/dashboard.module").then((m) => m.DashboardModule),
-  },
+
   {
     path: "roles",
     loadChildren: () =>
@@ -16,20 +12,14 @@ const routes: Routes = [
   },
   
   {
-    path: "users",
+    path: "students",
     loadChildren: () =>
-      import("./users/users.module").then(
+      import("./students/student.module").then(
         (m) => m.UsersModule
       ),
   },
 
-  {
-    path: "departments",
-    loadChildren: () =>
-      import("./departments/departments.module").then(
-        (m) => m.DepartmentsModule
-      ),
-  },
+ 
   {
     path: "entities",
     loadChildren: () =>

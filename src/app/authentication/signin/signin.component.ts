@@ -5,7 +5,6 @@ import { AuthService } from "src/app/core/service/auth.service";
 import { Role } from "src/app/core/models/role";
 import { TokenStorageService } from "src/app/core/service/token-storage.service";
 import { MatDialog, MatDialogConfig, MatDialogRef } from "@angular/material/dialog";
-import { ChangepasswordComponent } from "src/app/admin/users/changepassword/changepassword.component";
 import { SnackbarService } from "src/app/shared/snackbar.service";
 @Component({
   selector: "app-signin",
@@ -90,7 +89,7 @@ export class SigninComponent
             this.tokenStorage.saveUser(res.data);
             const role = res.data.roles[0];
             if (role == Role.user) {
-              this.router.navigate(['/admin/users'])
+              this.router.navigate(['/admin/students'])
             }
             
 
@@ -115,22 +114,5 @@ export class SigninComponent
         this.loading = false;
     }
   }
-  changePassword() {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true
-    dialogConfig.autoFocus = true
-    dialogConfig.width = "70%"
-//    private final JwtParser jwtParser;
-
-//    public JwtServiceImpl() {
-//        this.jwtParser = Jwts.parser().setSigningKey(jwtSigningKey);
-//    }
-    dialogConfig.data = {
-      test: ""
-    }
-    this.dialog.open(ChangepasswordComponent, dialogConfig)
-  }
-  // close(){
-  //   this.dialogRef.close()
-  // }
+ 
 }
