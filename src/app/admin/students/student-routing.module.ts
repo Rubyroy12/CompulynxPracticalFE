@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { SettingsComponent } from './settings/settings.component';
-import { UploadedusersComponent } from './uploadedusers/uploadedusers.component';
 import { studentsAccountsComponent } from './studentsAccounts/studentsAccounts.component';
+import { DataGenerationComponent } from './data-generation/data-generation.component';
+import { DataProcessingComponent } from './data-processing/data-processing.component';
+import { FileUploadComponent } from './file-upload/file-upload.component';
+import { StudentReportsComponent } from './student-reports/student-reports.component';
 
 const routes: Routes = [
   {
@@ -10,13 +12,21 @@ const routes: Routes = [
     component: studentsAccountsComponent,
   },
   {
-    path: "bulkusers",
-    component: UploadedusersComponent,
+    path: "generate",
+    component: DataGenerationComponent,
   },
  
   {
-    path: "settings",
-    component: SettingsComponent,
+    path: "process",
+    component: DataProcessingComponent,
+  }, 
+  {
+    path: "upload",
+    component: FileUploadComponent,
+  },
+  {
+    path: "reports",
+    component: StudentReportsComponent,
   },
 ]
 

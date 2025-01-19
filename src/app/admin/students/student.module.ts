@@ -25,6 +25,10 @@ import { UserWigetsComponent } from './user-wigets/user-wigets.component';
 import { DeleteaccountComponent } from './deleteaccount/deleteaccount.component';
 // import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { SettingsComponent } from './settings/settings.component';
+import { DataGenerationComponent } from './data-generation/data-generation.component';
+import { DataProcessingComponent } from './data-processing/data-processing.component';
+import { StudentReportsComponent } from './student-reports/student-reports.component';
+import { FileUploadComponent } from './file-upload/file-upload.component';
 // import { MatTableExporterModule } from 'mat-table-exporter';
 
 
@@ -36,6 +40,12 @@ import { SettingsComponent } from './settings/settings.component';
     UserWigetsComponent,
     DeleteaccountComponent,
     SettingsComponent,
+    DataGenerationComponent,
+    DataProcessingComponent,
+    StudentReportsComponent,
+    FileUploadComponent
+
+
   ],
   imports: [
     CommonModule,
