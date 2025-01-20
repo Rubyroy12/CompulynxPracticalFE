@@ -10,8 +10,11 @@ const studentsApi = `${environment.apiUrl}/api/v1/`;
 const AUTH_API = `${environment.apiUrl}/api/v1/auth/`;
 
 const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json',
+  })
 };
+
 
 @Injectable({
   providedIn: "root",
@@ -51,10 +54,8 @@ export class AuthService {
   // }
 
   allStudents(): Observable<any> {
-    return this.http.get(studentsApi + 'students');
+    return this.http.get(studentsApi + 'students',httpOptions);
   }
-
-
 
   getUserByUsername(username: any): Observable<any> {
     return this.http.get(AUTH_API + `account/${username}`, httpOptions);

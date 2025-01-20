@@ -10,6 +10,7 @@ import { AuthService } from 'src/app/core/service/auth.service';
 import { SnackbarService } from 'src/app/shared/snackbar.service';
 import { DeleteaccountComponent } from '../deleteaccount/deleteaccount.component';
 import { UpdateuserComponent } from '../updateuser/updateuser.component';
+import { StudentService } from '../student.service';
 
 @Component({
   selector: 'app-studentsAccounts',
@@ -30,16 +31,19 @@ export class studentsAccountsComponent implements OnInit {
   ];
 
   selected = 'all';
-  users:any;
+  students: any;
   dataSource!: MatTableDataSource<any>;
   selection = new SelectionModel<any>(true, []);
   index: number;
   id: number;
   isLoading = true;
   isdata: boolean;
+  studentIdFilter: string = '';
+
 
   constructor(
     private accountService: AuthService,
+    private studentService: StudentService,
     public dialog: MatDialog,
     private snackbar: SnackbarService,
     private router: Router
@@ -62,30 +66,76 @@ export class studentsAccountsComponent implements OnInit {
   }
 
   fetchData() {
-    if (this.selected == "all") {
-      this.getAllStudents();
-    }
-    
+
+    this.getAllStudentsByClass(this.selected);
+
   }
 
   getAllStudents() {
     this.accountService.allStudents()
       .subscribe(
         (res) => {
-            this.users = res.data;
-          if (this.users.length > 0) {
+          this.students = res.data;
+          if (this.students.length > 0) {
             this.isLoading = false;
-            this.isdata = true; 
-            this.dataSource = new MatTableDataSource<any>(this.users);
+            this.isdata = true;
+            this.dataSource = new MatTableDataSource<any>(this.students);
             this.dataSource.paginator = this.paginator;
             this.dataSource.sort = this.sort;
           }
           else {
             this.isdata = false;
-            this.dataSource = new MatTableDataSource<any>(this.users);
+            this.dataSource = new MatTableDataSource<any>(this.students);
           }
         }
       );
+  }
+  getAllStudentsByClass(sclass: any) {
+    console.log("Selected class ", sclass)
+    this.studentService.allStudentsBycClass(sclass)
+      .subscribe(
+        (res) => {
+          this.students = res.data;
+          if (this.students.length > 0) {
+            this.isLoading = false;
+            this.isdata = true;
+            this.dataSource = new MatTableDataSource<any>(this.students);
+            this.dataSource.paginator = this.paginator;
+            this.dataSource.sort = this.sort;
+          }
+          else {
+            this.isdata = false;
+            this.dataSource = new MatTableDataSource<any>(this.students);
+          }
+        }
+      );
+  }
+  getById(id: any) {
+
+  }
+
+
+  applyStudentIdFilter() {
+    if (this.studentIdFilter.trim()) {
+      // Find the record that matches the studentIdFilter
+
+      this.studentService.getBYId(this.studentIdFilter.trim())
+        .subscribe(
+          (res) => {
+            this.students = new Array(res.data);
+            console.log(this.students)
+            if (this.students)
+              this.isdata = true;
+            this.dataSource = new MatTableDataSource<any>(this.students);
+            this.dataSource.paginator = this.paginator;
+            this.dataSource.sort = this.sort;
+
+          }
+        );
+    } else {
+      // If the filter is empty, show all records
+      this.getAllStudents();
+    }
   }
 
 
@@ -105,7 +155,7 @@ export class studentsAccountsComponent implements OnInit {
   }
 
 
- 
+
 
   deleteDetailsCall(user) {
     const dialogConfig = new MatDialogConfig();

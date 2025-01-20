@@ -73,7 +73,7 @@ export const ROUTES: RouteInfo[] = [
     ],
   },
   {
-    path: "/admin/students/generate",
+    path: "/admin/students/reports",
     title: "Student Report",
     moduleName: "students",
     iconType: "feather",

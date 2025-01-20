@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
@@ -69,6 +69,8 @@ import { FileUploadComponent } from './file-upload/file-upload.component';
     MatDialogModule,
     // PerfectScrollbarModule
     
-  ]
+  ],
+  providers: [DatePipe],
+  
 })
 export class UsersModule { component}

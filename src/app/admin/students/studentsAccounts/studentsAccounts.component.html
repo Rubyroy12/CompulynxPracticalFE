@@ -17,32 +17,47 @@
             <div class="table-responsive">
               <div class="materialTableHeader">
                 <div class="row">
-                  <div class="col-8">
-                    <ul class="header-buttons-left ms-0">
-                      <li class="dropdown">
-                        <div class="m-l-5">
-                          <mat-form-field class="example-full-width mb-3" appearance="outline">
-                            <mat-label>Filter By </mat-label>
-                            <mat-select [(value)]="selected" (selectionChange)="fetchData()">
-                              <mat-option value="all"><b>All Accounts</b></mat-option>
+                  <div class="col-12">
+                    <ul class="header-buttons-left ms-0 d-flex align-items-center">
 
-                            </mat-select>
-                          </mat-form-field>
-                        </div>
+                      <!-- Filter By Class Dropdown -->
+                      <li class="dropdown m-l-5">
+                        <mat-form-field appearance="outline" class="example-full-width">
+                          <mat-label>Filter By Class</mat-label>
+                          <mat-select [(value)]="selected" (selectionChange)="fetchData()">
+                            <mat-option value="all" [disabled]><b>----</b></mat-option>
+                            <mat-option value="Class1"><b>Class1</b></mat-option>
+                            <mat-option value="Class2"><b>Class2</b></mat-option>
+                            <mat-option value="Class3"><b>Class3</b></mat-option>
+                            <mat-option value="Class4"><b>Class4</b></mat-option>
+                            <mat-option value="Class5"><b>Class5</b></mat-option>
+                          </mat-select>
+                        </mat-form-field>
                       </li>
 
+                      <!-- Search Input -->
                       <li class="dropdown m-l-5">
                         <label for="search-input"><i class="material-icons search-icon">search</i></label>
                         <input placeholder="Search" type="text" (keyup)="applyFilter($event)" #filter
                           class="browser-default search-field" aria-label="Search box" />
                       </li>
-                      <li>
-                        <!-- <div class="m-l-5" matTooltip="Add">
-                          <button mat-mini-fab color="primary" (click)="addNew()">
-                            <mat-icon class="col-white">add</mat-icon>
+
+                      <!-- Enter Student ID Input & Search Button -->
+                      <li class="dropdown m-l-5">
+                        <div class="mat-input-container">
+                          <mat-form-field appearance="outline" class="mat-form-field-small">
+                            <input matInput type="text" [(ngModel)]="studentIdFilter" placeholder="Student ID"
+                              class="input-sm" />
+                          </mat-form-field>
+                          <button mat-icon-button color="primary" (click)="applyStudentIdFilter()" matTooltip="Search">
+                            <mat-icon>search</mat-icon>
                           </button>
-                        </div> -->
+                        </div>
                       </li>
+                      
+                      
+
+                      <!-- Refresh Button -->
                       <li>
                         <div class="m-l" matTooltip="Refresh">
                           <button mat-mini-fab color="primary" (click)="refresh()">
@@ -50,34 +65,24 @@
                           </button>
                         </div>
                       </li>
+
                     </ul>
                   </div>
-
                 </div>
               </div>
+
               <mat-table #table [dataSource]="dataSource" mat-row-hover matSort class="mat-cell">
-                <!-- Checkbox Column -->
-                <ng-container matColumnDef="select">
-                  <mat-header-cell *matHeaderCellDef [ngClass]="'tbl-col-width-per-6'">
-                    <mat-checkbox (change)="$event ? masterToggle() : null"
-                      [checked]="selection.hasValue() && isAllSelected()"
-                      [indeterminate]="selection.hasValue() && !isAllSelected()" [ngClass]="'tbl-checkbox'">
-                    </mat-checkbox>
-                  </mat-header-cell>
-                  <mat-cell *matCellDef="let row" [ngClass]="'tbl-col-width-per-6'">
-                    <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
-                      [checked]="selection.isSelected(row)" [ngClass]="'tbl-checkbox'">
-                    </mat-checkbox>
-                  </mat-cell>
-                </ng-container>
+
                 <!-- ID Column -->
                 <ng-container matColumnDef="studentId">
                   <mat-header-cell *matHeaderCellDef mat-sort-header
                     class="table-img tbl-col-width-per-8">#</mat-header-cell>
                   <mat-cell class="table-img tbl-col-width-per-8" *matCellDef="let element; let i = index"
-                    [class.odd-row]="i % 2" [class.even-row]="!(i % 2)">{{i +
-                    1}}</mat-cell>
+                    [class.odd-row]="i % 2" [class.even-row]="!(i % 2)">
+                    {{element.studentId}} <!-- Displaying the studentId from the data source -->
+                  </mat-cell>
                 </ng-container>
+
                 <ng-container matColumnDef="firstName">
                   <mat-header-cell *matHeaderCellDef mat-sort-header
                     class="table-img column-nowrap">FirstName</mat-header-cell>
@@ -132,26 +137,25 @@
                   <mat-cell *matCellDef="let user;let i = index" [class.odd-row]="i % 2" [class.even-row]="!(i % 2)"
                     class="pr-0">
                     <button mat-icon-button color="primary" (click)="$event.stopPropagation()"
-                    (click)="accountDetailsCall(user)" class="tbl-action-btn" matTooltip="View Details">
-                    <mat-icon>visibility</mat-icon>
-                  </button>
+                      (click)="accountDetailsCall(user)" class="tbl-action-btn" matTooltip="View Details">
+                      <mat-icon>visibility</mat-icon>
+                    </button>
                     <button mat-icon-button color="primary" (click)="$event.stopPropagation()" (click)="editCall(user)"
                       class="tbl-action-btn" matTooltip="Update Account">
                       <mat-icon>edit</mat-icon>
                     </button>
 
-                  
-                    <button mat-icon-button color="primary"
-                      (click)="$event.stopPropagation()" (click)="deleteDetailsCall(user)" matTooltip="Delete Account"
-                      class="tbl-action-btn">
+
+                    <button mat-icon-button color="primary" (click)="$event.stopPropagation()"
+                      (click)="deleteDetailsCall(user)" matTooltip="Delete Account" class="tbl-action-btn">
                       <mat-icon>delete_outline</mat-icon>
                     </button>
 
-                  
-                   
 
-                
-                   
+
+
+
+
                   </mat-cell>
                 </ng-container>
 
