@@ -16,13 +16,17 @@ export class TokenStorageService {
   }
 
   public saveToken(token: string): void {
+    console.log("Saving token to localStorage:", token);  // Debugging log
     window.localStorage.removeItem(TOKEN_KEY);
     window.localStorage.setItem(TOKEN_KEY, token);
   }
-
-  public getToken(): string | null {
-    return window.localStorage.getItem(TOKEN_KEY);
+  
+  public getToken(): string {
+    const token = window.localStorage.getItem(TOKEN_KEY);
+    console.log("Token Retrieved from Local Storage:", token);  // Debugging log
+    return token;
   }
+  
 
   public saveUser(user: any): void {
     window.localStorage.removeItem(USER_KEY);

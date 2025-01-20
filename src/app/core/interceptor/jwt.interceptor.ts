@@ -11,23 +11,29 @@ import { TokenStorageService } from "../service/token-storage.service";
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
-  constructor(private tokenStorage: TokenStorageService) {}
+  constructor(private tokenStorage: TokenStorageService) { }
 
   intercept(
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    // add authorization header with jwt token if available
     let token = this.tokenStorage.getToken();
-    if (token) {
-      //console.log(token)
-      const cloneReq = request.clone({
-        headers: request.headers.set('Authorization', `Bearer ${token}`)
-      })
+    console.log("JWT Token Retrieved:", token); // Debugging log
 
-      return next.handle(cloneReq);
+    if (token) {
+      console.log("Token exists, modifying request...");
+      
+      const clonedRequest = request.clone({
+        setHeaders: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+
+      console.log("Modified Headers:", clonedRequest.headers);
+      return next.handle(clonedRequest);
     }
 
-    return next.handle(request.clone());
+    console.log("No token found, sending request without Authorization header.");
+    return next.handle(request);
   }
 }

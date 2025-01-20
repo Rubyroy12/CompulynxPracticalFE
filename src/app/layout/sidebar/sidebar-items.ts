@@ -19,7 +19,7 @@ export const ROUTES: RouteInfo[] = [
 
 
   {
-    path: "/admin/entities",
+    path: "/admin/students/generate",
     title: "Data generation",
     moduleName: "students",
     iconType: "feather",
@@ -33,7 +33,7 @@ export const ROUTES: RouteInfo[] = [
   },
 
   {
-    path: "/admin/entities",
+    path: "/admin/students/process",
     title: "Data processing",
     moduleName: "students",
     iconType: "feather",
@@ -46,7 +46,7 @@ export const ROUTES: RouteInfo[] = [
     submenu: [],
   },
   {
-    path: "/admin/entities",
+    path: "/admin/students/upload",
     title: "File upload",
     moduleName: "students",
     iconType: "feather",
@@ -73,7 +73,7 @@ export const ROUTES: RouteInfo[] = [
     ],
   },
   {
-    path: "/admin/entities",
+    path: "/admin/students/generate",
     title: "Student Report",
     moduleName: "students",
     iconType: "feather",

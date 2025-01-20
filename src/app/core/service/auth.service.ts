@@ -51,7 +51,7 @@ export class AuthService {
   // }
 
   allStudents(): Observable<any> {
-    return this.http.get(studentsApi + 'students', httpOptions);
+    return this.http.get(studentsApi + 'students');
   }
 
 
