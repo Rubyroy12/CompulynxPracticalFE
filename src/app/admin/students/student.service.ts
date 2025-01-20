@@ -50,7 +50,7 @@ export class StudentService {
       endDate: endDate
     };
 
-    return this.http.get<Blob>(studentsApi, {
+    return this.http.get<Blob>(studentsApi+"/export", {
       headers: new HttpHeaders(),
       params: params,
       observe: 'response',

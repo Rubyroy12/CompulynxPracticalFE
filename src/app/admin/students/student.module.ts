@@ -17,7 +17,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { studentsAccountsComponent } from './studentsAccounts/studentsAccounts.component';
 
-import { UpdateuserComponent } from './updateuser/updateuser.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTabsModule } from '@angular/material/tabs';
 import { UploadedusersComponent } from './uploadedusers/uploadedusers.component';
@@ -29,14 +28,15 @@ import { DataGenerationComponent } from './data-generation/data-generation.compo
 import { DataProcessingComponent } from './data-processing/data-processing.component';
 import { StudentReportsComponent } from './student-reports/student-reports.component';
 import { FileUploadComponent } from './file-upload/file-upload.component';
+import { UpdateuserComponent } from './updateuser/updateuser.component';
 // import { MatTableExporterModule } from 'mat-table-exporter';
 
 
 @NgModule({
   declarations: [
     studentsAccountsComponent,
-    UpdateuserComponent,
     UploadedusersComponent,
+    UpdateuserComponent,
     UserWigetsComponent,
     DeleteaccountComponent,
     SettingsComponent,
@@ -68,9 +68,9 @@ import { FileUploadComponent } from './file-upload/file-upload.component';
     MatSnackBarModule,
     MatDialogModule,
     // PerfectScrollbarModule
-    
+
   ],
   providers: [DatePipe],
-  
+
 })
-export class UsersModule { component}
+export class UsersModule { component }

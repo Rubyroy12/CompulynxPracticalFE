@@ -70,6 +70,7 @@ export class studentsAccountsComponent implements OnInit {
     this.getAllStudentsByClass(this.selected);
 
   }
+  
 
   getAllStudents() {
     this.accountService.allStudents()
@@ -140,13 +141,13 @@ export class studentsAccountsComponent implements OnInit {
 
 
 
-  editCall(user) {
+  editCall(student) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;
     dialogConfig.autoFocus = true;
     dialogConfig.width = "800px";
     dialogConfig.data = {
-      user,
+      student,
     };
     const dialogRef = this.dialog.open(UpdateuserComponent, dialogConfig);
     dialogRef.afterClosed().subscribe((result) => {

@@ -34,17 +34,18 @@ export class UpdateuserComponent implements OnInit {
 
   updateAccountForm(): FormGroup {
     return this.fb.group({
-      firstname: [this.data.user.firstname, [Validators.required]],
-      lastname: [this.data.user.lastname, [Validators.required]],
-      username: [this.data.user.username, [Validators.required]],
-      phonenumber: [this.data.user.phonenumber, [Validators.required]],
-      email: [this.data.user.email, [Validators.required]],
-      reportingTo: [this.data.user.reportingTo, [Validators.required]],
-      id: [this.data.user.id, [Validators.required]],
+      firstName: [this.data.student.firstName, [Validators.required]],
+      lastName: [this.data.student.lastName, [Validators.required]],
+      dob: [this.data.student.dob, [Validators.required]],
+      studentClass: [this.data.student.studentClass, [Validators.required]],
+      score: [this.data.student.score, [Validators.required]],
+      status: [this.data.student.status, [Validators.required]],
+      studentId: [this.data.student.studentId, [Validators.required]],
     });
   }
 
   ngOnInit(): void {
+    console.log(this.data.student.stde)
   }
 
   onCancel() {
