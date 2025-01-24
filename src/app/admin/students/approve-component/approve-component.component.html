@@ -1,0 +1,50 @@
+<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+    <div class="card">
+        <div class="header">
+            <h2>APPROVE STUDENT UPDATE</h2>
+        </div>
+        <div class="body">
+            <form [formGroup]="form" class="m-4">
+                <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                        <mat-form-field class="example-full-width mb-3" appearance="outline">
+                            <input formControlName="studentId" matInput [placeholder]="data.student?.firstName" readonly>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                        <mat-form-field appearance="outline" class="example-full-width">
+                            <mat-label>Select Status</mat-label>
+                            <mat-select formControlName="status">
+                                <mat-option value="APPROVED"><b>Approve</b></mat-option>
+                                <mat-option value="REJECTED"><b>Reject</b></mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <!-- Reason Field appears only if "Reject" is selected -->
+                    <div *ngIf="form.get('status')?.value === 'REJECTED'" class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                        <mat-form-field class="example-full-width mb-3" appearance="outline">
+                            <mat-label>Reason</mat-label>
+                            <input formControlName="reason" matInput required />
+                            <mat-error *ngIf="form.get('reason').hasError('required')">
+                                Reason is required when rejecting
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                        <div class="example-button-row" align="end">
+                            <button mat-raised-button color="primary" [disabled]="!form.valid" (click)="approve()">
+                                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                                <b>SUBMIT</b>
+                            </button>
+                            <button mat-raised-button color="warn" (click)="onCancel()" tabindex="-1">
+                                CANCEL
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

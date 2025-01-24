@@ -9,7 +9,12 @@
     <!-- Widgets -->
     <app-user-wigets></app-user-wigets>
     <!-- #END# Widgets -->
-
+     <section>
+      <app-average-score></app-average-score>
+     </section>
+     <section>
+      <app-selected-students></app-selected-students>
+     </section>
     <div class="row">
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="card">
@@ -20,6 +25,9 @@
                   <div class="col-12">
                     <ul class="header-buttons-left ms-0 d-flex align-items-center">
 
+                      <button mat-raised-button color="primary" (click)="getSelectedIds()">
+                        Select All IDs
+                      </button>
                       <!-- Filter By Class Dropdown -->
                       <li class="dropdown m-l-5">
                         <mat-form-field appearance="outline" class="example-full-width">
@@ -34,13 +42,23 @@
                           </mat-select>
                         </mat-form-field>
                       </li>
-
-                      <!-- Search Input -->
                       <li class="dropdown m-l-5">
+                        <mat-form-field appearance="outline" class="example-full-width">
+                          <mat-label>Filter By State</mat-label>
+                          <mat-select [(value)]="selectedState" (selectionChange)="fetchDataByState()">
+                            <mat-option value="all" [disabled]><b>----</b></mat-option>
+                            <mat-option value="ACTIVE"><b>Active</b></mat-option>
+                            <mat-option value="PENDING"><b>Pending</b></mat-option>
+                            <mat-option value="REJECTED"><b>Rejected</b></mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </li>
+                      <!-- Search Input -->
+                      <!-- <li class="dropdown m-l-5">
                         <label for="search-input"><i class="material-icons search-icon">search</i></label>
                         <input placeholder="Search" type="text" (keyup)="applyFilter($event)" #filter
                           class="browser-default search-field" aria-label="Search box" />
-                      </li>
+                      </li> -->
 
                       <!-- Enter Student ID Input & Search Button -->
                       <li class="dropdown m-l-5">
@@ -72,7 +90,20 @@
               </div>
 
               <mat-table #table [dataSource]="dataSource" mat-row-hover matSort class="mat-cell">
-
+                <ng-container matColumnDef="select">
+                  <mat-header-cell *matHeaderCellDef [ngClass]="'tbl-col-width-per-6'">
+                    <mat-checkbox (change)="$event ? masterToggle() : null"
+                      [checked]="selection.hasValue() && isAllSelected()"
+                      [indeterminate]="selection.hasValue() && !isAllSelected()" [ngClass]="'tbl-checkbox'">
+                    </mat-checkbox>
+                  </mat-header-cell>
+                  <mat-cell *matCellDef="let row" [ngClass]="'tbl-col-width-per-6'">
+                    <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+                      [checked]="selection.isSelected(row)" [ngClass]="'tbl-checkbox'">
+                    </mat-checkbox>
+                  </mat-cell>
+                </ng-container>
+                
                 <!-- ID Column -->
                 <ng-container matColumnDef="studentId">
                   <mat-header-cell *matHeaderCellDef mat-sort-header
@@ -145,8 +176,14 @@
                   <mat-cell *matCellDef="let user;let i = index" [class.odd-row]="i % 2" [class.even-row]="!(i % 2)"
                     class="pr-0">
 
+
+                    <button mat-icon-button color="primary" (click)="$event.stopPropagation()" (click)="aprove(user)"
+                    class="tbl-action-btn" matTooltip="Approve Account Update" *ngIf="user.state === 'PENDING' && role==='VERIFIER'">
+                    <mat-icon>check_circle</mat-icon>
+                  </button>
+
                     <button mat-icon-button color="primary" (click)="$event.stopPropagation()" (click)="editCall(user)"
-                      class="tbl-action-btn" matTooltip="Update Account">
+                      class="tbl-action-btn" matTooltip="Update Account" *ngIf="role==='INITIATOR'">
                       <mat-icon>edit</mat-icon>
                     </button>
 
@@ -155,11 +192,6 @@
                       (click)="deleteDetailsCall(user)" matTooltip="Delete Account" class="tbl-action-btn">
                       <mat-icon>delete_outline</mat-icon>
                     </button>
-
-
-
-
-
 
                   </mat-cell>
                 </ng-container>

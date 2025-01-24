@@ -11,6 +11,10 @@ import { SnackbarService } from 'src/app/shared/snackbar.service';
 import { DeleteaccountComponent } from '../deleteaccount/deleteaccount.component';
 import { UpdateuserComponent } from '../updateuser/updateuser.component';
 import { StudentService } from '../student.service';
+import { ApproveComponentComponent } from '../approve-component/approve-component.component';
+import { TokenStorageService } from 'src/app/core/service/token-storage.service';
+import { SelectedStudentsComponent } from '../selected-students/selected-students.component';
+import { StsService } from '../sts.service';
 
 @Component({
   selector: 'app-studentsAccounts',
@@ -20,6 +24,7 @@ import { StudentService } from '../student.service';
 export class studentsAccountsComponent implements OnInit {
 
   displayedColumns: string[] = [
+    'select',
     "studentId",
     "firstName",
     "lastName",
@@ -32,6 +37,7 @@ export class studentsAccountsComponent implements OnInit {
   ];
 
   selected = 'all';
+  selectedState: any
   students: any;
   dataSource!: MatTableDataSource<any>;
   selection = new SelectionModel<any>(true, []);
@@ -40,6 +46,9 @@ export class studentsAccountsComponent implements OnInit {
   isLoading = true;
   isdata: boolean;
   studentIdFilter: string = '';
+  selectedIds: string[] = [];
+  user: any
+  role: any
 
 
   constructor(
@@ -47,21 +56,54 @@ export class studentsAccountsComponent implements OnInit {
     private studentService: StudentService,
     public dialog: MatDialog,
     private snackbar: SnackbarService,
-    private router: Router
+    private tokenStorageService: TokenStorageService,
+    private stsService: StsService,
+
   ) {
   }
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild("filter", { static: true }) filter: ElementRef;
-  @ViewChild(MatMenuTrigger)
+
+
+
   contextMenu: MatMenuTrigger;
   contextMenuPosition = { x: "0px", y: "0px" };
 
   ngOnInit(): void {
+
+    this.user = this.tokenStorageService.getUser()
+    this.role = this.user.roles[0]
+    console.info(this.user.roles[0])
     this.getAllStudents();
+
+
   }
 
+
+
+
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    return numSelected === numRows;
+  }
+  getSelectedIds() {
+    this.selectedIds = this.selection.selected.map(item => item.studentId);
+    console.log('Selected IDs:', this.selectedIds);
+    this.studentService.getSelected(this.selectedIds)
+      .subscribe(
+        (res) => {
+          console.info(res.data)
+          if (res.status === 'SUCCESS') {
+            this.students = res.data.studentList;
+            this.stsService.updateSelectedStudents(res.data); // Store data in service
+          
+          }
+        }
+      );
+  }
   refresh() {
     this.getAllStudents();
   }
@@ -71,7 +113,12 @@ export class studentsAccountsComponent implements OnInit {
     this.getAllStudentsByClass(this.selected);
 
   }
-  
+  fetchDataByState() {
+
+    this.getAllStudentsByState(this.selectedState);
+
+  }
+
 
   getAllStudents() {
     this.accountService.allStudents()
@@ -97,30 +144,54 @@ export class studentsAccountsComponent implements OnInit {
     this.studentService.allStudentsBycClass(sclass)
       .subscribe(
         (res) => {
-          if(res.status="SUCCESS"){
-          this.students = res.data;
-          if (this.students.length > 0) {
-            this.isLoading = false;
-            this.isdata = true;
-            this.dataSource = new MatTableDataSource<any>(this.students);
-            this.dataSource.paginator = this.paginator;
-            this.dataSource.sort = this.sort;
-          }
-          else {
+          if (res.status = "SUCCESS") {
+            this.students = res.data;
+            if (this.students.length > 0) {
+              this.isLoading = false;
+              this.isdata = true;
+              this.dataSource = new MatTableDataSource<any>(this.students);
+              this.dataSource.paginator = this.paginator;
+              this.dataSource.sort = this.sort;
+            }
+            else {
+              this.isdata = false;
+              this.dataSource = new MatTableDataSource<any>(this.students);
+            }
+          } else {
             this.isdata = false;
-            this.dataSource = new MatTableDataSource<any>(this.students);
-          }
-        }else{
-          this.isdata = false;
-          this.snackbar.showNotification("snackbar-danger", res.message);
+            this.snackbar.showNotification("snackbar-danger", res.message);
 
-        }
+          }
         }
       );
   }
-  getById(id: any) {
+  getAllStudentsByState(state: any) {
+    console.log("Selected class ", state)
+    this.studentService.allStudentsByState(state)
+      .subscribe(
+        (res) => {
+          if (res.status = "SUCCESS") {
+            this.students = res.data;
+            if (this.students.length > 0) {
+              this.isLoading = false;
+              this.isdata = true;
+              this.dataSource = new MatTableDataSource<any>(this.students);
+              this.dataSource.paginator = this.paginator;
+              this.dataSource.sort = this.sort;
+            }
+            else {
+              this.isdata = false;
+              this.dataSource = new MatTableDataSource<any>(this.students);
+            }
+          } else {
+            this.isdata = false;
+            this.snackbar.showNotification("snackbar-danger", res.message);
 
+          }
+        }
+      );
   }
+
 
 
   applyStudentIdFilter() {
@@ -157,6 +228,19 @@ export class studentsAccountsComponent implements OnInit {
       student,
     };
     const dialogRef = this.dialog.open(UpdateuserComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe((result) => {
+      this.getAllStudents();
+    });
+  }
+  aprove(student) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = "800px";
+    dialogConfig.data = {
+      student,
+    };
+    const dialogRef = this.dialog.open(ApproveComponentComponent, dialogConfig);
     dialogRef.afterClosed().subscribe((result) => {
       this.getAllStudents();
     });

@@ -26,6 +26,14 @@ export class StudentService {
     return this.http.get<any>(generateUrl, httpOptions);
 
   }
+  getSelected(data:any): Observable<any> {
+    const selectedUrl = studentsApi + `/selected`
+    return this.http.post<any>(selectedUrl, data);
+  }
+  approve(data:any): Observable<any> {
+    const approveUrl = studentsApi + `/approve`
+    return this.http.post<any>(approveUrl, data);
+  }
   process(): Observable<any> {
     const processurl = studentsApi + `/process`
     return this.http.get<any>(processurl, httpOptions);
@@ -40,6 +48,9 @@ export class StudentService {
   }
   allStudentsBycClass(studentClass: string): Observable<any> {
     return this.http.get(studentsApi + '/class?studentClass=' + studentClass, httpOptions);
+  }
+  allStudentsByState(state: string): Observable<any> {
+    return this.http.get(studentsApi + '/state?state=' + state, httpOptions);
   }
   getBYId(id: string): Observable<any> {
     return this.http.get(studentsApi + '/' + id, httpOptions);

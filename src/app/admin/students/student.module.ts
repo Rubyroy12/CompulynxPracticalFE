@@ -28,6 +28,11 @@ import { DataProcessingComponent } from './data-processing/data-processing.compo
 import { StudentReportsComponent } from './student-reports/student-reports.component';
 import { FileUploadComponent } from './file-upload/file-upload.component';
 import { UpdateuserComponent } from './updateuser/updateuser.component';
+import { ApproveComponentComponent } from './approve-component/approve-component.component';
+import { AverageScoreComponent } from "./average-score/average-score.component";
+import { SelectedStudentsComponent } from "./selected-students/selected-students.component";
+import {MatCheckboxModule} from '@angular/material/checkbox';
+
 // import { MatTableExporterModule } from 'mat-table-exporter';
 
 
@@ -41,8 +46,10 @@ import { UpdateuserComponent } from './updateuser/updateuser.component';
     DataGenerationComponent,
     DataProcessingComponent,
     StudentReportsComponent,
-    FileUploadComponent
-
+    FileUploadComponent,
+    ApproveComponentComponent,
+    AverageScoreComponent,
+    SelectedStudentsComponent
 
   ],
   imports: [
@@ -53,6 +60,7 @@ import { UpdateuserComponent } from './updateuser/updateuser.component';
     MatSortModule,
     MatPaginatorModule,
     // MatTableExporterModule,
+  
     SharedModule,
     ComponentsModule,
     MatMenuModule,
@@ -65,9 +73,9 @@ import { UpdateuserComponent } from './updateuser/updateuser.component';
     MatProgressBarModule,
     MatSnackBarModule,
     MatDialogModule,
-    // PerfectScrollbarModule
-
-  ],
+    MatCheckboxModule
+    
+],
   providers: [DatePipe],
 
 })

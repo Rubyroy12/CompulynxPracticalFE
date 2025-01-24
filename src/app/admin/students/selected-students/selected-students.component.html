@@ -1,0 +1,87 @@
+<div class="row">
+    <div class="section">
+        <mat-table #table [dataSource]="dataSource" mat-row-hover matSort class="mat-cell">
+          
+
+            <!-- ID Column -->
+            <ng-container matColumnDef="studentId">
+                <mat-header-cell *matHeaderCellDef mat-sort-header
+                    class="table-img tbl-col-width-per-8">#</mat-header-cell>
+                <mat-cell class="table-img tbl-col-width-per-8" *matCellDef="let element; let i = index"
+                    [class.odd-row]="i % 2" [class.even-row]="!(i % 2)">
+                    {{element.studentId}} <!-- Displaying the studentId from the data source -->
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="firstName">
+                <mat-header-cell *matHeaderCellDef mat-sort-header
+                    class="table-img column-nowrap">FirstName</mat-header-cell>
+                <mat-cell *matCellDef="let user;let i = index" [class.odd-row]="i % 2" [class.even-row]="!(i % 2)"
+                    class="table-img column-nowrap">{{
+                    user.firstName }}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="lastName">
+                <mat-header-cell *matHeaderCellDef mat-sort-header
+                    class="table-img column-nowrap">LastName</mat-header-cell>
+                <mat-cell *matCellDef="let user;let i = index" [class.odd-row]="i % 2" [class.even-row]="!(i % 2)"
+                    class="table-img column-nowrap">
+                    {{ user.lastName }}
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="dob">
+                <mat-header-cell *matHeaderCellDef mat-sort-header class="table-img column-nowrap text-left">DOB
+                </mat-header-cell>
+                <mat-cell *matCellDef="let user;let i = index" [class.odd-row]="i % 2" [class.even-row]="!(i % 2)"
+                    class="table-img  column-nowrap">
+                    {{user.dob}}
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="studentClass">
+                <mat-header-cell *matHeaderCellDef mat-sort-header class="table-img column-nowrap text-left">Class
+                </mat-header-cell>
+                <mat-cell *matCellDef="let user;let i = index" [class.odd-row]="i % 2" [class.even-row]="!(i % 2)"
+                    class="table-img  column-nowrap">
+                    {{user.studentClass}}
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="score">
+                <mat-header-cell *matHeaderCellDef mat-sort-header class="table-img column-nowrap text-left">score
+                </mat-header-cell>
+                <mat-cell *matCellDef="let user;let i = index" [class.odd-row]="i % 2" [class.even-row]="!(i % 2)"
+                    class="table-img  column-nowrap">
+                    {{user.score}}
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="status">
+                <mat-header-cell *matHeaderCellDef mat-sort-header class="table-img column-nowrap text-left">status
+                </mat-header-cell>
+                <mat-cell *matCellDef="let user;let i = index" [class.odd-row]="i % 2" [class.even-row]="!(i % 2)"
+                    class="table-img  column-nowrap">
+                    {{user.status}}
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="state">
+                <mat-header-cell *matHeaderCellDef mat-sort-header class="table-img column-nowrap text-left">State
+                </mat-header-cell>
+                <mat-cell *matCellDef="let user;let i = index" [class.odd-row]="i % 2" [class.even-row]="!(i % 2)"
+                    class="table-img  column-nowrap">
+                    {{user.state}}
+                </mat-cell>
+            </ng-container>
+            <!-- actions -->
+           
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns" [style.cursor]="'pointer'" matRipple>
+            </mat-row>
+            <mat-cell *matNoDataRow colspan="4">
+                No data matching the filter "{{ input.value }}"</mat-cell>
+        </mat-table>
+
+
+        <mat-paginator #paginator [pageIndex]="0" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
+        </mat-paginator>
+    </div>
+</div>

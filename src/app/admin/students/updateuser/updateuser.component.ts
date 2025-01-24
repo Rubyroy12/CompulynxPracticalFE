@@ -16,7 +16,7 @@ export class UpdateuserComponent implements OnInit {
 
   studentForm: FormGroup;
   selectedFile: File | null = null;
-  student: any = {};  
+  student: any = {};
 
   loading = false;
 
@@ -27,27 +27,31 @@ export class UpdateuserComponent implements OnInit {
     public dialogRef: MatDialogRef<studentsAccountsComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
   ) {
-    this.studentForm = this.updateAccountForm();
+    this.studentService.getBYId(this.data.student.studentId)
+      .subscribe(
+        (res) => {
+          console.log("StudentbyId", res)
+          this.student = res.data
+          this.studentForm = this.updateAccountForm(this.student);
+        });
+
   }
 
 
-  updateAccountForm(): FormGroup {
+  updateAccountForm(student: any): FormGroup {
     return this.fb.group({
-      firstName: [this.data.student.firstName, [Validators.required]],
-      lastName: [this.data.student.lastName, [Validators.required]],
-      dob: [this.data.student.dob, [Validators.required]],
-      studentClass: [this.data.student.studentClass, [Validators.required]],
-      score: [this.data.student.score, [Validators.required]],
-      status: [this.data.student.status, [Validators.required]],
-      studentId: [this.data.student.studentId, [Validators.required]],
-      photoPath: [this.data.student.photoPath],
+      firstName: [student?.firstName, [Validators.required]],
+      lastName: [student.lastName, [Validators.required]],
+      dob: [student.dob, [Validators.required]],
+      studentClass: [student.studentClass, [Validators.required]],
+      score: [student.score, [Validators.required]],
+      status: [student.status, [Validators.required]],
+      studentId: [student.studentId, [Validators.required]],
+      photoPath: [student.photoPath],
     });
   }
 
   ngOnInit(): void {
-    console.log(this.data.student.studentId)
-    this.student = this.data.student
-    // console.log(this.student.photoPath); 
 
   }
 
@@ -87,7 +91,7 @@ export class UpdateuserComponent implements OnInit {
             next: (res) => {
               this.loading = false;
               console.info(res.data)
-                          
+
               this.snackbar.showNotification("snackbar-success", res.message);
               this.studentForm.reset();
               this.dialogRef.close();
