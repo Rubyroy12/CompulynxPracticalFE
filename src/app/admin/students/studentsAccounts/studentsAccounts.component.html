@@ -54,8 +54,8 @@
                           </button>
                         </div>
                       </li>
-                      
-                      
+
+
 
                       <!-- Refresh Button -->
                       <li>
@@ -131,15 +131,20 @@
                     {{user.status}}
                   </mat-cell>
                 </ng-container>
+                <ng-container matColumnDef="state">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header class="table-img column-nowrap text-left">State
+                  </mat-header-cell>
+                  <mat-cell *matCellDef="let user;let i = index" [class.odd-row]="i % 2" [class.even-row]="!(i % 2)"
+                    class="table-img  column-nowrap">
+                    {{user.state}}
+                  </mat-cell>
+                </ng-container>
                 <!-- actions -->
                 <ng-container matColumnDef="actions">
                   <mat-header-cell class="pr-0 column-nowrap" *matHeaderCellDef>Actions</mat-header-cell>
                   <mat-cell *matCellDef="let user;let i = index" [class.odd-row]="i % 2" [class.even-row]="!(i % 2)"
                     class="pr-0">
-                    <button mat-icon-button color="primary" (click)="$event.stopPropagation()"
-                      (click)="accountDetailsCall(user)" class="tbl-action-btn" matTooltip="View Details">
-                      <mat-icon>visibility</mat-icon>
-                    </button>
+
                     <button mat-icon-button color="primary" (click)="$event.stopPropagation()" (click)="editCall(user)"
                       class="tbl-action-btn" matTooltip="Update Account">
                       <mat-icon>edit</mat-icon>

@@ -3,13 +3,7 @@ import { Routes, RouterModule } from "@angular/router";
 
 const routes: Routes = [
 
-  {
-    path: "roles",
-    loadChildren: () =>
-      import("./roles/roles.module").then(
-        (m) => m.RolesModule
-      ),
-  },
+ 
   
   {
     path: "students",
@@ -20,13 +14,7 @@ const routes: Routes = [
   },
 
  
-  {
-    path: "entities",
-    loadChildren: () =>
-        import("./entity/entity.module").then(
-        (m) => m.EntityModule
-      ),
-  },
+  
   
 ];
 

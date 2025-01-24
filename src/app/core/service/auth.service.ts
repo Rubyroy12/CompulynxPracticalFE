@@ -66,7 +66,7 @@ export class AuthService {
   }
 
   updateUser(data: any): Observable<any> {
-    return this.http.put(studentsApi + 'update', data, httpOptions);
+    return this.http.put(studentsApi + '/update', data, httpOptions);
   }
 
   delete(data: any): Observable<any> {

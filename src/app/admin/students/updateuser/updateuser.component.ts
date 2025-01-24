@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/service/auth.service';
 import { SnackbarService } from 'src/app/shared/snackbar.service';
 import { studentsAccountsComponent } from '../studentsAccounts/studentsAccounts.component';
+import { StudentService } from '../student.service';
 
 @Component({
   selector: 'app-updateuser',
@@ -13,23 +14,21 @@ import { studentsAccountsComponent } from '../studentsAccounts/studentsAccounts.
 })
 export class UpdateuserComponent implements OnInit {
 
-  userForm: FormGroup;
-  roles: any;
-  departments: any;
-  senior: any;
+  studentForm: FormGroup;
+  selectedFile: File | null = null;
+  student: any = {};  
+
   loading = false;
 
   constructor(
     private fb: FormBuilder,
-    private router: Router,
-    private accountService: AuthService,
+    private studentService: StudentService,
     private snackbar: SnackbarService,
     public dialogRef: MatDialogRef<studentsAccountsComponent>,
-    private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any,
   ) {
-    this.userForm = this.updateAccountForm();
-   }
+    this.studentForm = this.updateAccountForm();
+  }
 
 
   updateAccountForm(): FormGroup {
@@ -41,11 +40,19 @@ export class UpdateuserComponent implements OnInit {
       score: [this.data.student.score, [Validators.required]],
       status: [this.data.student.status, [Validators.required]],
       studentId: [this.data.student.studentId, [Validators.required]],
+      photoPath: [this.data.student.photoPath],
     });
   }
 
   ngOnInit(): void {
-    console.log(this.data.student.stde)
+    console.log(this.data.student.studentId)
+    this.student = this.data.student
+    // console.log(this.student.photoPath); 
+
+  }
+
+  onFileSelected(event: any) {
+    this.selectedFile = event.target.files[0];
   }
 
   onCancel() {
@@ -54,28 +61,48 @@ export class UpdateuserComponent implements OnInit {
 
   updateUser() {
     this.loading = true;
-    this.accountService.updateUser({
-      firstname: this.userForm.value.firstname,
-      lastname: this.userForm.value.lastname,
-      username: this.userForm.value.username,
-      phonenumber: this.userForm.value.phonenumber,
-      email: this.userForm.value.email,
-      id:this.userForm.value.id,
-      reportingTo: this.userForm.value.reportingTo,
-    }).subscribe(
-      (res) => {
-        this.loading = false;
-        this.snackbar.showNotification("snackbar-success", "SUCCESSFUL!");
-        this.userForm.reset();
-        this.dialogRef.close();
+
+    // If no file is selected, update user without a new file
+    if (!this.selectedFile) {
+      this.loading = false;
+      this.snackbar.showNotification("snackbar-success", "File must be uploaded");
+
+      return;
+    }
+
+    // Upload file first
+    const formData = new FormData();
+    formData.append('file', this.selectedFile);
+
+    this.studentService.uploadPhoto(formData).subscribe({
+      next: (fileRes: any) => {
+
+        if (fileRes.status = "SUCCSS") {
+
+          this.studentForm.patchValue({ photoPath: fileRes.message });
+
+
+          // Now update the user with the new photo path
+          this.studentService.updateUser(this.studentForm.value).subscribe({
+            next: (res) => {
+              this.loading = false;
+              console.info(res.data)
+                          
+              this.snackbar.showNotification("snackbar-success", res.message);
+              this.studentForm.reset();
+              this.dialogRef.close();
+            },
+            error: (err) => {
+              this.loading = false;
+              this.snackbar.showNotification("snackbar-danger", err);
+            }
+          });
+        }
       },
-      (err) => {
+      error: (err) => {
         this.loading = false;
         this.snackbar.showNotification("snackbar-danger", err);
       }
-    );
+    });
   }
-
-
-
-}
+}  

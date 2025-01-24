@@ -19,7 +19,6 @@ import { studentsAccountsComponent } from './studentsAccounts/studentsAccounts.c
 
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTabsModule } from '@angular/material/tabs';
-import { UploadedusersComponent } from './uploadedusers/uploadedusers.component';
 import { UserWigetsComponent } from './user-wigets/user-wigets.component';
 import { DeleteaccountComponent } from './deleteaccount/deleteaccount.component';
 // import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
@@ -35,7 +34,6 @@ import { UpdateuserComponent } from './updateuser/updateuser.component';
 @NgModule({
   declarations: [
     studentsAccountsComponent,
-    UploadedusersComponent,
     UpdateuserComponent,
     UserWigetsComponent,
     DeleteaccountComponent,

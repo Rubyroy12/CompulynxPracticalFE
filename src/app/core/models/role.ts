@@ -1,6 +1,7 @@
 export enum Role {
   All = "All",
   Admin = "ADMIN",
-  user = "USER",
+  Maker = "MAKER",
+  Checker = "CHECKER",
 
 }

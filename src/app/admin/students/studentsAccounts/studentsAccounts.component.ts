@@ -27,6 +27,7 @@ export class studentsAccountsComponent implements OnInit {
     "studentClass",
     "score",
     "status",
+    "state",
     "actions"
   ];
 
@@ -96,6 +97,7 @@ export class studentsAccountsComponent implements OnInit {
     this.studentService.allStudentsBycClass(sclass)
       .subscribe(
         (res) => {
+          if(res.status="SUCCESS"){
           this.students = res.data;
           if (this.students.length > 0) {
             this.isLoading = false;
@@ -108,6 +110,11 @@ export class studentsAccountsComponent implements OnInit {
             this.isdata = false;
             this.dataSource = new MatTableDataSource<any>(this.students);
           }
+        }else{
+          this.isdata = false;
+          this.snackbar.showNotification("snackbar-danger", res.message);
+
+        }
         }
       );
   }

@@ -16,7 +16,8 @@
           <div class="body">
             <form (ngSubmit)="onSubmit()" #dobRangeForm="ngForm">
               <div class="row">
-                <div class="col-md-6">
+                <h5>Export by Date of birth</h5>
+                <div class="col-md-4">
                   <mat-form-field appearance="outline" class="full-width">
                     <mat-label>Start Date</mat-label>
                     <input matInput [matDatepicker]="startDatePicker" [(ngModel)]="startDate" name="startDate" required>
@@ -25,7 +26,7 @@
                   </mat-form-field>
                 </div>
 
-                <div class="col-md-6">
+                <div class="col-md-4">
                   <mat-form-field appearance="outline" class="full-width">
                     <mat-label>End Date</mat-label>
                     <input matInput [matDatepicker]="endDatePicker" [(ngModel)]="endDate" name="endDate" required>

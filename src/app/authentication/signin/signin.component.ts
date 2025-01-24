@@ -88,9 +88,9 @@ export class SigninComponent
             this.tokenStorage.saveToken(res.data.token);
             this.tokenStorage.saveUser(res.data);
             const role = res.data.roles[0];
-            if (role == Role.user) {
+            // if (role == Role.Maker) {
               this.router.navigate(['/admin/students'])
-            }
+            // }
             
 
 

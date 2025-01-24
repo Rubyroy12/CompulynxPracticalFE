@@ -28,7 +28,7 @@ export const ROUTES: RouteInfo[] = [
     groupTitle: false,
     badge: "",
     badgeClass: "",
-    role: ["USER"],
+    role: ["ADMIN", "INITIATOR", "VERIFIER"],
     submenu: [],
   },
 
@@ -42,7 +42,7 @@ export const ROUTES: RouteInfo[] = [
     groupTitle: false,
     badge: "",
     badgeClass: "",
-    role: ["USER"],
+    role: ["ADMIN", "INITIATOR", "VERIFIER"],
     submenu: [],
   },
   {
@@ -55,7 +55,8 @@ export const ROUTES: RouteInfo[] = [
     groupTitle: false,
     badge: "",
     badgeClass: "",
-    role: ["USER"],
+    role: ["ADMIN", "INITIATOR", "VERIFIER"],
+
     submenu: [],
   },
   {
@@ -68,7 +69,8 @@ export const ROUTES: RouteInfo[] = [
     groupTitle: false,
     badge: "",
     badgeClass: "",
-    role: ["USER"],
+    role: ["ADMIN", "INITIATOR", "VERIFIER"],
+
     submenu: [
     ],
   },
@@ -82,7 +84,8 @@ export const ROUTES: RouteInfo[] = [
     groupTitle: false,
     badge: "",
     badgeClass: "",
-    role: ["USER"],
+    role: ["ADMIN", "INITIATOR", "VERIFIER"],
+
     submenu: [],
   }
 ];

@@ -14,10 +14,10 @@ const routes: Routes = [
       { path: "", redirectTo: "/authentication/signin", pathMatch: "full" },
       {
         path: "admin",
-        canActivate: [AuthGuard],
-        data: {
-          role: Role.user,
-        },
+        // canActivate: [AuthGuard],
+        // data: {
+        //   role: Role.Admin,
+        // },
         loadChildren: () =>
           import("./admin/admin.module").then((m) => m.AdminModule),
       },

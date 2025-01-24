@@ -58,4 +58,11 @@ export class StudentService {
     });
   }
 
+   updateUser(data: any): Observable<any> {
+      return this.http.put(studentsApi + '/update', data, httpOptions);
+    }
+    uploadPhoto(data: any): Observable<any> {
+      return this.http.post(studentsApi + '/file', data);
+    }
+
 }
